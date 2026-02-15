@@ -3,28 +3,6 @@
  * 
  * Plug-and-play: Replace BASE_URL with your Node.js backend URL.
  * All endpoints follow RESTful conventions.
- * 
- * Expected endpoints:
- *   GET    /api/events
- *   POST   /api/events
- *   PUT    /api/events/:id
- *   DELETE /api/events/:id
- *
- *   GET    /api/registrations
- *
- *   GET    /api/gallery
- *   POST   /api/gallery (multipart/form-data)
- *   DELETE /api/gallery/:id
- *
- *   GET    /api/stats
- *   POST   /api/stats
- *   PUT    /api/stats/:id
- *   DELETE /api/stats/:id
- *
- *   GET    /api/testimonials
- *   POST   /api/testimonials
- *   PUT    /api/testimonials/:id
- *   DELETE /api/testimonials/:id
  */
 
 import type {
@@ -33,6 +11,7 @@ import type {
   AdminGalleryItem,
   AdminStat,
   AdminTestimonial,
+  AdminTeamMember,
 } from "@/types/admin";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
@@ -106,4 +85,37 @@ export const adminTestimonialsApi = {
     request<AdminTestimonial>(`/api/testimonials/${id}`, { method: "PUT", body: JSON.stringify(data) }),
   delete: (id: number) =>
     request<void>(`/api/testimonials/${id}`, { method: "DELETE" }),
+};
+
+// ─── Team ─────────────────────────────────────────────────
+export const adminTeamApi = {
+  getAll: () => request<AdminTeamMember[]>("/api/team"),
+  create: async (data: Omit<AdminTeamMember, "id">, imageFile?: File): Promise<AdminTeamMember> => {
+    if (imageFile) {
+      const formData = new FormData();
+      formData.append("image", imageFile);
+      Object.entries(data).forEach(([key, value]) => {
+        if (key !== "image") formData.append(key, String(value));
+      });
+      const res = await fetch(`${BASE_URL}/api/team`, { method: "POST", body: formData });
+      if (!res.ok) throw new Error("Create failed");
+      return res.json();
+    }
+    return request<AdminTeamMember>("/api/team", { method: "POST", body: JSON.stringify(data) });
+  },
+  update: async (id: number, data: Partial<AdminTeamMember>, imageFile?: File): Promise<AdminTeamMember> => {
+    if (imageFile) {
+      const formData = new FormData();
+      formData.append("image", imageFile);
+      Object.entries(data).forEach(([key, value]) => {
+        if (key !== "image" && value !== undefined) formData.append(key, String(value));
+      });
+      const res = await fetch(`${BASE_URL}/api/team/${id}`, { method: "PUT", body: formData });
+      if (!res.ok) throw new Error("Update failed");
+      return res.json();
+    }
+    return request<AdminTeamMember>(`/api/team/${id}`, { method: "PUT", body: JSON.stringify(data) });
+  },
+  delete: (id: number) =>
+    request<void>(`/api/team/${id}`, { method: "DELETE" }),
 };

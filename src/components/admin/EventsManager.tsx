@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -21,8 +21,8 @@ import type { AdminEvent } from "@/types/admin";
 
 const emptyEvent: Omit<AdminEvent, "id"> = {
   title: "", description: "", date: "", locationType: "physical",
-  locationDetails: "", isPaid: false, price: null, platform: "",
-  meetingLink: "", meetingId: "",
+  locationDetails: "", isPaid: false, price: null, currency: "KES",
+  event_code: "", platform: "", meetingLink: "", meetingId: "",
 };
 
 const EventsManager = () => {
@@ -52,13 +52,27 @@ const EventsManager = () => {
   const openAdd = () => { setEditing(null); setForm(emptyEvent); setDialogOpen(true); };
   const openEdit = (e: AdminEvent) => {
     setEditing(e);
-    setForm({ title: e.title, description: e.description, date: e.date, locationType: e.locationType, locationDetails: e.locationDetails, isPaid: e.isPaid, price: e.price, platform: e.platform, meetingLink: e.meetingLink, meetingId: e.meetingId });
+    setForm({
+      title: e.title, description: e.description, date: e.date,
+      locationType: e.locationType, locationDetails: e.locationDetails,
+      isPaid: e.isPaid, price: e.price, currency: e.currency || "KES",
+      event_code: e.event_code || "", platform: e.platform,
+      meetingLink: e.meetingLink, meetingId: e.meetingId,
+    });
     setDialogOpen(true);
   };
 
   const handleSave = async () => {
     if (!form.title.trim() || !form.date) {
       toast({ title: "Title and Date are required", variant: "destructive" });
+      return;
+    }
+    if (!form.event_code.trim()) {
+      toast({ title: "Event code is required", variant: "destructive" });
+      return;
+    }
+    if (form.isPaid && !form.currency) {
+      toast({ title: "Currency is required for paid events", variant: "destructive" });
       return;
     }
     setSaving(true);
@@ -120,6 +134,7 @@ const EventsManager = () => {
               <TableHeader>
                 <TableRow>
                   <TableHead>Title</TableHead>
+                  <TableHead>Code</TableHead>
                   <TableHead>Date</TableHead>
                   <TableHead>Location</TableHead>
                   <TableHead>Pricing</TableHead>
@@ -130,6 +145,7 @@ const EventsManager = () => {
                 {events.map(event => (
                   <TableRow key={event.id}>
                     <TableCell className="font-medium">{event.title}</TableCell>
+                    <TableCell className="font-mono text-xs">{event.event_code}</TableCell>
                     <TableCell className="text-sm">{event.date ? format(new Date(event.date), "PPP") : "—"}</TableCell>
                     <TableCell>
                       <Badge variant="outline">{event.locationType}</Badge>
@@ -137,7 +153,7 @@ const EventsManager = () => {
                     </TableCell>
                     <TableCell>
                       {event.isPaid ? (
-                        <Badge className="bg-primary text-primary-foreground">KES {event.price?.toLocaleString()}</Badge>
+                        <Badge className="bg-primary text-primary-foreground">{event.currency} {event.price?.toLocaleString()}</Badge>
                       ) : (
                         <Badge variant="secondary">Free</Badge>
                       )}
@@ -168,6 +184,10 @@ const EventsManager = () => {
             <div className="grid gap-2">
               <Label>Title *</Label>
               <Input value={form.title} onChange={e => setForm(f => ({...f, title: e.target.value}))} placeholder="Event title" />
+            </div>
+            <div className="grid gap-2">
+              <Label>Event Code *</Label>
+              <Input value={form.event_code} onChange={e => setForm(f => ({...f, event_code: e.target.value}))} placeholder="e.g. CGM-2026-001" />
             </div>
             <div className="grid gap-2">
               <Label>Description</Label>
@@ -207,10 +227,24 @@ const EventsManager = () => {
               <Switch checked={form.isPaid} onCheckedChange={v => setForm(f => ({...f, isPaid: v, price: v ? f.price : null}))} />
             </div>
             {form.isPaid && (
-              <div className="grid gap-2">
-                <Label>Price (KES)</Label>
-                <Input type="number" value={form.price ?? ""} onChange={e => setForm(f => ({...f, price: e.target.value ? Number(e.target.value) : null}))} placeholder="0" />
-              </div>
+              <>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="grid gap-2">
+                    <Label>Currency *</Label>
+                    <Select value={form.currency} onValueChange={v => setForm(f => ({...f, currency: v as "USD" | "KES"}))}>
+                      <SelectTrigger><SelectValue /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="KES">KES</SelectItem>
+                        <SelectItem value="USD">USD</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="grid gap-2">
+                    <Label>Price</Label>
+                    <Input type="number" value={form.price ?? ""} onChange={e => setForm(f => ({...f, price: e.target.value ? Number(e.target.value) : null}))} placeholder="0" />
+                  </div>
+                </div>
+              </>
             )}
             <div className="grid gap-2">
               <Label>Platform</Label>

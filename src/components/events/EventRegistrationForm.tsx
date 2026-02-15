@@ -9,6 +9,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Loader2 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { registrationApi, emailApi } from "@/services/api";
 import type { Event, Registration } from "@/types/models";
@@ -59,6 +60,7 @@ const EventRegistrationForm = ({ event, open, onOpenChange }: Props) => {
       const isFree = event.price === "free";
       const registration = await registrationApi.create({
         eventId: event.id,
+        event_code: event.event_code || "",
         fullName: data.fullName,
         idPassport: data.idPassport,
         gender: data.gender,
@@ -72,6 +74,8 @@ const EventRegistrationForm = ({ event, open, onOpenChange }: Props) => {
           phone: data.emergencyPhone || "",
         } : undefined,
         paymentStatus: isFree ? "not_required" : "pending",
+        price: typeof event.price === "number" ? event.price : null,
+        currency: event.currency || "KES",
       });
 
       if (isFree) {
@@ -113,7 +117,7 @@ const EventRegistrationForm = ({ event, open, onOpenChange }: Props) => {
       userName: updatedReg.fullName,
       eventTitle: event.title,
       eventDate: event.date.toLocaleDateString("en-GB", { weekday: "long", year: "numeric", month: "long", day: "numeric" }),
-      eventType: `Paid (KES ${event.price})`,
+      eventType: `Paid (${event.currency || "KES"} ${event.price})`,
       meetingDetails: event.meetingOption === "online"
         ? `Platform: Zoom | Meeting Link: ${event.meetingLink || "TBA"} | Meeting ID: ${event.meetingId || "TBA"}`
         : `Venue: ${event.location}`,
@@ -158,7 +162,7 @@ const EventRegistrationForm = ({ event, open, onOpenChange }: Props) => {
           <div className="space-y-4 py-4">
             <p className="text-muted-foreground">
               Your registration is saved. Please complete payment of{" "}
-              <strong className="text-foreground">KES {typeof event.price === "number" ? event.price.toLocaleString() : event.price}</strong>{" "}
+              <strong className="text-foreground">{event.currency || "KES"} {typeof event.price === "number" ? event.price.toLocaleString() : event.price}</strong>{" "}
               to confirm your booking and receive meeting details.
             </p>
             <div className="bg-secondary rounded-lg p-4 border border-border space-y-2">
@@ -187,7 +191,17 @@ const EventRegistrationForm = ({ event, open, onOpenChange }: Props) => {
         <DialogHeader>
           <DialogTitle className="text-xl font-bold">Register for Event</DialogTitle>
         </DialogHeader>
-        <p className="text-sm text-muted-foreground mb-2">{event.title}</p>
+        {/* Event Info (non-editable) */}
+        <div className="bg-secondary rounded-lg p-3 border border-border space-y-1.5 mb-2">
+          <p className="font-semibold text-foreground text-sm">{event.title}</p>
+          <p className="text-xs text-muted-foreground">
+            {event.date.toLocaleDateString("en-GB", { weekday: "long", year: "numeric", month: "long", day: "numeric" })} · {event.time}
+          </p>
+          <p className="text-xs text-muted-foreground">{event.location}</p>
+          <Badge variant="outline" className="text-xs">
+            {event.price === "free" ? "Free" : `${event.currency || "KES"} ${typeof event.price === "number" ? event.price.toLocaleString() : event.price}`}
+          </Badge>
+        </div>
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">

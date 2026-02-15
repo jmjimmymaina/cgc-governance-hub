@@ -4,17 +4,19 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
   CalendarDays, Users, Image, BarChart3, MessageSquare,
-  LogOut, Shield, Menu, X, ExternalLink,
+  LogOut, Shield, Menu, X, ExternalLink, UserCircle,
 } from "lucide-react";
 import EventsManager from "@/components/admin/EventsManager";
 import RegistrationsManager from "@/components/admin/RegistrationsManager";
 import GalleryManager from "@/components/admin/GalleryManager";
 import StatsManager from "@/components/admin/StatsManager";
 import TestimonialsManager from "@/components/admin/TestimonialsManager";
+import TeamManager from "@/components/admin/TeamManager";
 
 const NAV_ITEMS = [
   { key: "events", label: "Events", icon: CalendarDays },
   { key: "registrations", label: "Registrations", icon: Users },
+  { key: "team", label: "Team", icon: UserCircle },
   { key: "gallery", label: "Gallery", icon: Image },
   { key: "stats", label: "Stats", icon: BarChart3 },
   { key: "testimonials", label: "Testimonials", icon: MessageSquare },
@@ -116,6 +118,7 @@ const AdminDashboard = () => {
         <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-6xl">
           {active === "events" && <EventsManager />}
           {active === "registrations" && <RegistrationsManager />}
+          {active === "team" && <TeamManager />}
           {active === "gallery" && <GalleryManager />}
           {active === "stats" && <StatsManager />}
           {active === "testimonials" && <TestimonialsManager />}

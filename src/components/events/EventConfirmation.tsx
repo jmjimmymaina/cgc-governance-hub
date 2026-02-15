@@ -78,7 +78,7 @@ const EventConfirmation = ({ registration, event, onClose }: Props) => {
           <div className="flex gap-2 mt-2">
             <Badge variant="outline">{event.type === "training" ? "Training" : "Workshop"}</Badge>
             <Badge className={event.price === "free" ? "bg-green-600 text-white" : "bg-primary text-primary-foreground"}>
-              {event.price === "free" ? "Free" : `KES ${typeof event.price === "number" ? event.price.toLocaleString() : event.price}`}
+              {event.price === "free" ? "Free" : `${event.currency || "KES"} ${typeof event.price === "number" ? event.price.toLocaleString() : event.price}`}
             </Badge>
           </div>
         </div>

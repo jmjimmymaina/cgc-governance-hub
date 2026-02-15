@@ -40,7 +40,7 @@ const RegistrationsManager = () => {
 
   const filtered = useMemo(() => {
     let result = registrations;
-    if (search) result = result.filter(r => r.email.toLowerCase().includes(search.toLowerCase()));
+    if (search) result = result.filter(r => r.email.toLowerCase().includes(search.toLowerCase()) || r.full_name?.toLowerCase().includes(search.toLowerCase()));
     if (eventFilter !== "all") result = result.filter(r => String(r.event_id) === eventFilter);
     return result;
   }, [registrations, search, eventFilter]);
@@ -74,7 +74,7 @@ const RegistrationsManager = () => {
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
-          <Input placeholder="Search by email..." value={search} onChange={e => { setSearch(e.target.value); setPage(1); }} className="pl-9" />
+          <Input placeholder="Search by email or name..." value={search} onChange={e => { setSearch(e.target.value); setPage(1); }} className="pl-9" />
         </div>
         <Select value={eventFilter} onValueChange={v => { setEventFilter(v); setPage(1); }}>
           <SelectTrigger className="w-full sm:w-[220px]">
@@ -103,40 +103,50 @@ const RegistrationsManager = () => {
               </p>
             </div>
           ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>ID</TableHead>
-                  <TableHead>Event</TableHead>
-                  <TableHead>Email</TableHead>
-                  <TableHead>Phone</TableHead>
-                  <TableHead>Payment</TableHead>
-                  <TableHead>Reference</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {paginated.map(reg => (
-                  <TableRow key={reg.id}>
-                    <TableCell className="font-mono text-xs">{reg.id}</TableCell>
-                    <TableCell className="text-sm">{getEventTitle(reg.event_id)}</TableCell>
-                    <TableCell>{reg.email}</TableCell>
-                    <TableCell>{reg.phone}</TableCell>
-                    <TableCell>
-                      <Badge variant={reg.is_paid ? "default" : "secondary"}>
-                        {reg.is_paid ? "Paid" : "Free"}
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="font-mono text-xs">{reg.payment_reference || "—"}</TableCell>
-                    <TableCell className="text-right">
-                      <Button variant="ghost" size="icon" onClick={() => handleDelete(reg.id)} disabled={deleting === reg.id}>
-                        {deleting === reg.id ? <Loader2 size={14} className="animate-spin" /> : <Trash2 size={14} className="text-destructive" />}
-                      </Button>
-                    </TableCell>
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Conf. Ref</TableHead>
+                    <TableHead>Event</TableHead>
+                    <TableHead>Event Code</TableHead>
+                    <TableHead>Name</TableHead>
+                    <TableHead>Email</TableHead>
+                    <TableHead>Phone</TableHead>
+                    <TableHead>Payment</TableHead>
+                    <TableHead>Price</TableHead>
+                    <TableHead>Pay Ref</TableHead>
+                    <TableHead className="text-right">Actions</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHeader>
+                <TableBody>
+                  {paginated.map(reg => (
+                    <TableRow key={reg.id}>
+                      <TableCell className="font-mono text-xs font-semibold text-primary">{reg.confirmation_ref || "—"}</TableCell>
+                      <TableCell className="text-sm">{getEventTitle(reg.event_id)}</TableCell>
+                      <TableCell className="font-mono text-xs">{reg.event_code || "—"}</TableCell>
+                      <TableCell>{reg.full_name || "—"}</TableCell>
+                      <TableCell>{reg.email}</TableCell>
+                      <TableCell>{reg.phone}</TableCell>
+                      <TableCell>
+                        <Badge variant={reg.is_paid ? "default" : "secondary"}>
+                          {reg.is_paid ? "Paid" : "Free"}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="text-sm">
+                        {reg.price != null ? `${reg.currency || "KES"} ${reg.price.toLocaleString()}` : "—"}
+                      </TableCell>
+                      <TableCell className="font-mono text-xs">{reg.payment_reference || "—"}</TableCell>
+                      <TableCell className="text-right">
+                        <Button variant="ghost" size="icon" onClick={() => handleDelete(reg.id)} disabled={deleting === reg.id}>
+                          {deleting === reg.id ? <Loader2 size={14} className="animate-spin" /> : <Trash2 size={14} className="text-destructive" />}
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
           )}
         </CardContent>
       </Card>
