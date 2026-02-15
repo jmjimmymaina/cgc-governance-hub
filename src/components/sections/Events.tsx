@@ -45,6 +45,10 @@ const EventCard = ({ event }: { event: Event }) => {
     location: event.location,
   });
 
+  const priceLabel = event.price === "free"
+    ? "Free"
+    : `${event.currency || "KES"} ${typeof event.price === "number" ? event.price.toLocaleString() : event.price}`;
+
   return (
     <>
       <Card className="hover:shadow-lg transition-shadow duration-300">
@@ -73,7 +77,7 @@ const EventCard = ({ event }: { event: Event }) => {
                     : "bg-amber-100 text-amber-800 border-amber-300"}
                   variant="outline"
                 >
-                  {event.price === "free" ? "Free" : `KES ${typeof event.price === "number" ? event.price.toLocaleString() : event.price}`}
+                  {priceLabel}
                 </Badge>
               </div>
             </div>
@@ -137,6 +141,8 @@ const Events = () => {
 
       const priceRaw = (row[8] || "free").trim().toLowerCase();
       const price: "free" | number = priceRaw === "free" ? "free" : parseInt(priceRaw) || 0;
+      const currency = ((row[10] || "KES").trim().toUpperCase()) as "USD" | "KES";
+      const event_code = (row[11] || "").trim();
 
       return {
         id: String(index + 1),
@@ -150,7 +156,9 @@ const Events = () => {
         status: (row[7]?.toLowerCase() || "upcoming") as "upcoming" | "past",
         price,
         meetingLink: row[9] || undefined,
-        meetingId: row[10] || undefined,
+        currency,
+        event_code,
+        meetingId: row[12] || undefined,
       };
     });
   }, []);
@@ -240,7 +248,7 @@ const Events = () => {
                                 {event.status === "upcoming" ? "Upcoming" : "Past"}
                               </Badge>
                               <Badge variant="outline" className="text-xs">
-                                {event.price === "free" ? "Free" : `KES ${typeof event.price === "number" ? event.price.toLocaleString() : event.price}`}
+                                {event.price === "free" ? "Free" : `${event.currency} ${typeof event.price === "number" ? event.price.toLocaleString() : event.price}`}
                               </Badge>
                             </div>
                           </div>

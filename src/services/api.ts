@@ -53,7 +53,6 @@ export const paymentApi = {
     if (payment) {
       payment.status = status;
       if (transactionRef) payment.transactionRef = transactionRef;
-      // Also update registration payment status
       const reg = registrations.find((r) => r.id === payment.registrationId);
       if (reg && status === "completed") {
         reg.paymentStatus = "completed";
@@ -87,7 +86,6 @@ export const emailApi = {
 // --- Events CRUD (for admin) ---
 export const eventsApi = {
   getAll: async (): Promise<Event[]> => {
-    // In production, GET /api/events
     return [];
   },
   create: async (event: Omit<Event, "id">): Promise<Event> => {

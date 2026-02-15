@@ -9,6 +9,8 @@ export interface Event {
   meetingOption: "online" | "physical";
   status: "upcoming" | "past";
   price: "free" | number;
+  currency: "USD" | "KES";
+  event_code: string;
   meetingLink?: string;
   meetingId?: string;
 }
@@ -16,6 +18,7 @@ export interface Event {
 export interface Registration {
   id: string;
   eventId: string;
+  event_code: string;
   fullName: string;
   idPassport: string;
   gender: "male" | "female" | "other";
@@ -25,6 +28,8 @@ export interface Registration {
   emergencyContact?: EmergencyContact;
   confirmationRef: string;
   paymentStatus: "pending" | "completed" | "not_required";
+  price: number | null;
+  currency: string;
   createdAt: Date;
 }
 
