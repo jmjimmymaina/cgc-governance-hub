@@ -26,6 +26,8 @@ export default {
         "cgc-red-dark": "hsl(var(--cgc-red-dark))",
         "cgc-black": "hsl(var(--cgc-black))",
         "cgc-white": "hsl(var(--cgc-white))",
+        "cgc-navy": "hsl(var(--cgc-navy))",
+        "cgc-navy-dark": "hsl(var(--cgc-navy-dark))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
