@@ -26,16 +26,31 @@ const Hero = () => {
     }`;
 
   return (
-    <section className="relative min-h-screen flex items-center bg-foreground overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }} />
+    <section className="relative min-h-screen flex items-center overflow-hidden" style={{ background: 'var(--gradient-hero)' }}>
+      {/* Sophisticated layered background */}
+      <div className="absolute inset-0">
+        {/* Subtle grid */}
+        <div
+          className="absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage: `linear-gradient(hsl(var(--primary-foreground) / 0.5) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary-foreground) / 0.5) 1px, transparent 1px)`,
+            backgroundSize: '64px 64px',
+            maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)',
+            WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)',
+          }}
+        />
+        {/* Burgundy glow top-left */}
+        <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full opacity-30 blur-3xl"
+          style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.6), transparent 70%)' }} />
+        {/* Gold glow bottom-right */}
+        <div className="absolute -bottom-40 -right-40 w-[600px] h-[600px] rounded-full opacity-20 blur-3xl"
+          style={{ background: 'radial-gradient(circle, hsl(var(--accent) / 0.5), transparent 70%)' }} />
+        {/* Top vignette */}
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/30 to-transparent" />
       </div>
 
-      {/* Red accent line */}
-      <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-primary" />
+      {/* Gold accent line */}
+      <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-primary via-accent to-primary" />
 
       <div className="container-padding max-w-7xl mx-auto relative z-10 pt-20 w-full">
         <div className="relative min-h-[600px] flex items-center justify-center">
