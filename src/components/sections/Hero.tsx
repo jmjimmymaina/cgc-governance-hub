@@ -31,26 +31,26 @@ const Hero = () => {
       <div className="absolute inset-0">
         {/* Soft diagonal pinstripes — premium corporate texture */}
         <div
-          className="absolute inset-0 opacity-[0.04]"
+          className="absolute inset-0 opacity-[0.06]"
           style={{
-            backgroundImage: `repeating-linear-gradient(135deg, hsl(var(--primary-foreground)) 0, hsl(var(--primary-foreground)) 1px, transparent 1px, transparent 14px)`,
+            backgroundImage: `repeating-linear-gradient(135deg, hsl(var(--primary)) 0, hsl(var(--primary)) 1px, transparent 1px, transparent 14px)`,
             maskImage: 'linear-gradient(180deg, transparent, black 20%, black 80%, transparent)',
             WebkitMaskImage: 'linear-gradient(180deg, transparent, black 20%, black 80%, transparent)',
           }}
         />
         {/* Elegant burgundy aurora — top-left */}
-        <div className="absolute -top-1/3 -left-1/4 w-[800px] h-[800px] rounded-full opacity-40 blur-[120px]"
-          style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.7), transparent 65%)' }} />
+        <div className="absolute -top-1/3 -left-1/4 w-[800px] h-[800px] rounded-full opacity-30 blur-[120px]"
+          style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.5), transparent 65%)' }} />
         {/* Gold ambient — bottom-right */}
-        <div className="absolute -bottom-1/3 -right-1/4 w-[700px] h-[700px] rounded-full opacity-25 blur-[120px]"
-          style={{ background: 'radial-gradient(circle, hsl(var(--accent) / 0.6), transparent 65%)' }} />
-        {/* Subtle center spotlight for depth */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] opacity-20 blur-3xl"
-          style={{ background: 'radial-gradient(ellipse, hsl(var(--accent) / 0.15), transparent 70%)' }} />
+        <div className="absolute -bottom-1/3 -right-1/4 w-[700px] h-[700px] rounded-full opacity-20 blur-[120px]"
+          style={{ background: 'radial-gradient(circle, hsl(var(--accent) / 0.5), transparent 65%)' }} />
+        {/* Soft cream spotlight for depth */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] opacity-40 blur-3xl"
+          style={{ background: 'radial-gradient(ellipse, hsl(var(--background) / 0.5), transparent 70%)' }} />
         {/* Top vignette for header contrast */}
-        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/40 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background/50 to-transparent" />
         {/* Bottom fade */}
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/30 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background/40 to-transparent" />
       </div>
 
       {/* Gold accent line */}
