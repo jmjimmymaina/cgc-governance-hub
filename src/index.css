@@ -56,7 +56,7 @@
 
     /* Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(350 72% 38%), hsl(350 78% 28%));
-    --gradient-hero: linear-gradient(135deg, hsl(217 40% 12%) 0%, hsl(215 35% 18%) 50%, hsl(350 72% 28%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(6 55% 88%) 0%, hsl(8 60% 84%) 50%, hsl(6 50% 80%) 100%);
     --gradient-gold: linear-gradient(135deg, hsl(38 68% 52%), hsl(42 70% 60%));
     --gradient-subtle: linear-gradient(180deg, hsl(40 35% 97%), hsl(40 25% 93%));
 
