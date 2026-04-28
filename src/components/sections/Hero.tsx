@@ -145,10 +145,10 @@ const Hero = () => {
 
         {/* Short Vision & Mission */}
         <div className="grid md:grid-cols-2 gap-8 pb-16 -mt-4">
-          <div className="bg-background/10 backdrop-blur-sm rounded-xl p-8 border border-primary/20 text-center">
+          <div className="bg-card/60 backdrop-blur-sm rounded-xl p-8 border border-primary/20 text-center">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
-                <Eye className="text-foreground" size={24} />
+                <Eye className="text-primary-foreground" size={24} />
               </div>
               <h3 className="font-bold text-primary text-xl uppercase tracking-wider">Our Vision</h3>
             </div>
@@ -156,10 +156,10 @@ const Hero = () => {
               To be Africa's leading authority and preferred partner in governance, corporate secretarial, and board advisory services.
             </p>
           </div>
-          <div className="bg-background/10 backdrop-blur-sm rounded-xl p-8 border border-primary/20 text-center">
+          <div className="bg-card/60 backdrop-blur-sm rounded-xl p-8 border border-primary/20 text-center">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
-                <Target className="text-foreground" size={24} />
+                <Target className="text-primary-foreground" size={24} />
               </div>
               <h3 className="font-bold text-primary text-xl uppercase tracking-wider">Our Mission</h3>
             </div>
