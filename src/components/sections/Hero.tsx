@@ -61,15 +61,15 @@ const Hero = () => {
 
           {/* Slide 1 – What We Do */}
           <div className={slideClass(0)}>
-            <div className="text-primary-foreground text-center max-w-4xl mx-auto px-4">
+            <div className="text-foreground text-center max-w-4xl mx-auto px-4">
               <p className="text-primary font-bold tracking-widest uppercase text-sm mb-6">
                 Chartered Governance Centre
               </p>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] mb-8">
                 What Do <span className="text-primary">We Do?</span>
               </h1>
-              <p className="text-lg sm:text-xl text-primary-foreground/85 mb-10 leading-relaxed max-w-3xl mx-auto text-justify">
-                We provide expert advisory, specialized training, and comprehensive compliance support in <strong className="text-primary-foreground">corporate governance</strong>, <strong className="text-primary-foreground">secretarial practice</strong>, and <strong className="text-primary-foreground">board advisory</strong>—helping organizations build governance systems that drive performance and resilience.
+              <p className="text-lg sm:text-xl text-foreground/80 mb-10 leading-relaxed max-w-3xl mx-auto text-justify">
+                We provide expert advisory, specialized training, and comprehensive compliance support in <strong className="text-foreground">corporate governance</strong>, <strong className="text-foreground">secretarial practice</strong>, and <strong className="text-foreground">board advisory</strong>—helping organizations build governance systems that drive performance and resilience.
               </p>
               <ConsultationForm
                 trigger={
@@ -84,15 +84,15 @@ const Hero = () => {
 
           {/* Slide 2 – Who It's For */}
           <div className={slideClass(1)}>
-            <div className="text-primary-foreground text-center max-w-4xl mx-auto px-4">
+            <div className="text-foreground text-center max-w-4xl mx-auto px-4">
               <p className="text-primary font-bold tracking-widest uppercase text-sm mb-6">
                 Chartered Governance Centre
               </p>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] mb-8">
                 Who Is It <span className="text-primary">For?</span>
               </h1>
-              <p className="text-lg sm:text-xl text-primary-foreground/85 mb-10 leading-relaxed max-w-3xl mx-auto text-justify">
-                Our services are designed for <strong className="text-primary-foreground">boards of directors</strong>, <strong className="text-primary-foreground">company secretaries</strong>, <strong className="text-primary-foreground">senior leadership</strong>, and governance professionals across listed and unlisted companies, state corporations, regulators, and NGOs.
+              <p className="text-lg sm:text-xl text-foreground/80 mb-10 leading-relaxed max-w-3xl mx-auto text-justify">
+                Our services are designed for <strong className="text-foreground">boards of directors</strong>, <strong className="text-foreground">company secretaries</strong>, <strong className="text-foreground">senior leadership</strong>, and governance professionals across listed and unlisted companies, state corporations, regulators, and NGOs.
               </p>
               <ConsultationForm
                 trigger={
@@ -107,15 +107,15 @@ const Hero = () => {
 
           {/* Slide 3 – Why It Matters */}
           <div className={slideClass(2)}>
-            <div className="text-primary-foreground text-center max-w-4xl mx-auto px-4">
+            <div className="text-foreground text-center max-w-4xl mx-auto px-4">
               <p className="text-primary font-bold tracking-widest uppercase text-sm mb-6">
                 Chartered Governance Centre
               </p>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] mb-8">
                 Why It <span className="text-primary">Matters</span>
               </h1>
-              <p className="text-lg sm:text-xl text-primary-foreground/85 mb-10 leading-relaxed max-w-3xl mx-auto text-justify">
-                Strong governance drives <strong className="text-primary-foreground">accountability</strong>, <strong className="text-primary-foreground">regulatory compliance</strong>, and <strong className="text-primary-foreground">board effectiveness</strong>—mitigating legal risk and protecting stakeholder value for sustainable institutional success.
+              <p className="text-lg sm:text-xl text-foreground/80 mb-10 leading-relaxed max-w-3xl mx-auto text-justify">
+                Strong governance drives <strong className="text-foreground">accountability</strong>, <strong className="text-foreground">regulatory compliance</strong>, and <strong className="text-foreground">board effectiveness</strong>—mitigating legal risk and protecting stakeholder value for sustainable institutional success.
               </p>
               <ConsultationForm
                 trigger={
@@ -135,7 +135,7 @@ const Hero = () => {
                 key={i}
                 onClick={() => goToSlide(i)}
                 className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  currentSlide === i ? "bg-primary w-8" : "bg-primary-foreground/30 hover:bg-primary-foreground/50"
+                  currentSlide === i ? "bg-primary w-8" : "bg-primary/30 hover:bg-primary/60"
                 }`}
                 aria-label={`Go to slide ${i + 1}`}
               />
@@ -148,22 +148,22 @@ const Hero = () => {
           <div className="bg-background/10 backdrop-blur-sm rounded-xl p-8 border border-primary/20 text-center">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
-                <Eye className="text-primary-foreground" size={24} />
+                <Eye className="text-foreground" size={24} />
               </div>
               <h3 className="font-bold text-primary text-xl uppercase tracking-wider">Our Vision</h3>
             </div>
-            <p className="text-primary-foreground/85 leading-relaxed">
+            <p className="text-foreground/80 leading-relaxed">
               To be Africa's leading authority and preferred partner in governance, corporate secretarial, and board advisory services.
             </p>
           </div>
           <div className="bg-background/10 backdrop-blur-sm rounded-xl p-8 border border-primary/20 text-center">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
-                <Target className="text-primary-foreground" size={24} />
+                <Target className="text-foreground" size={24} />
               </div>
               <h3 className="font-bold text-primary text-xl uppercase tracking-wider">Our Mission</h3>
             </div>
-            <p className="text-primary-foreground/85 leading-relaxed">
+            <p className="text-foreground/80 leading-relaxed">
               To strengthen governance by enhancing board performance, reinforcing compliance, and protecting stakeholder value across public and private institutions.
             </p>
           </div>
